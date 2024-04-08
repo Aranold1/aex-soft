@@ -19,12 +19,14 @@
             
             using(var Db = new PostgresContext())
             {
-                var result = Db.Orders.Where(o=>o.Date>=beginDate).Select(x => new CustomerViewModel()
-                {
-                    CustomerName = x.Customer.Name,
-                    ManagerName = x.Customer.Manager.Name,
-                    Amount = x.Customer.Orders.Where(x=>x.Date>=beginDate).Sum(x=>x.Amount)
-                });
+                var result = Db.Customers.
+                    Where(c => c.Orders.Any(o => o.Date >= beginDate)).
+                    Select(c => new CustomerViewModel
+                    {
+                        CustomerName = c.Name,
+                        ManagerName = c.Manager.Name,
+                        Amount = c.Orders.Where(o => o.Date >= beginDate).Sum(x => x.Amount)
+                    });
 
                 return result.Where(x=>x.Amount>sumAmount).ToList();
             }
