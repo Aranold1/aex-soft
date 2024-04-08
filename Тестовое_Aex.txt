@@ -1,0 +1,48 @@
+Тестовое задание.
+SQL: 
+Есть три таблицы: https://gyazo.com/952191c4de05af6f2d013a83b2e05bcd
+
+CUSTOMERS (ID, NAME, MANAGERID); 
+MANAGERS (ID, NAME); 
+ORDERS (ID, DATE, AMOUNT, CUSTOMERID). 
+	
+Написать запрос, который выведет имена Customer и их Manager,
+ которые сделали покупок на общую сумму больше 1000 с 01.01.2023.
+
+
+Entity framework:
+public class Customer
+{
+        public int ID { get; set; }
+        public string Name { get; set; }
+        
+        public virtual Manager Manager { get; set; }
+        public int ManagerID { get; set; }
+        
+        public virtual ICollection<Order> Orders { get; set; }
+}
+
+public class Manager
+{
+        public int ID { get; set; }
+        public string Name { get; set; }
+}
+
+public class Order
+{
+        public int ID { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
+        public virtual Customer Customer { get; set; }
+        public int CustomerID { get; set; }
+}
+
+public class CustomerViewModel
+{
+  public string CustomerName { get; set; }
+  public string ManagerName { get; set; }
+  public decimal Amount { get; set; }
+}
+
+Написать публичный метод GetCustomers, который принимает дату (beginDate) и сумму (sumAmount) и возвращает List<CustomerViewModel>
+, которые сделали покупок на общую сумму больше sumAmount в промежуток с beginDate до текущего времени.
