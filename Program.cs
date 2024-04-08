@@ -23,7 +23,7 @@
                 {
                     CustomerName = x.Customer.Name,
                     ManagerName = x.Customer.Manager.Name,
-                    Amount = Db.Orders.Where(x=>x.Date>=beginDate).Sum(x=>x.Amount)
+                    Amount = x.Customer.Orders.Where(x=>x.Date>=beginDate).Sum(x=>x.Amount)
                 });
 
                 return result.Where(x=>x.Amount>sumAmount).ToList();
