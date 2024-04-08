@@ -8,7 +8,9 @@ Logs/
 # Generated files
 project.lock.json
 .vs/
-
+.sln
+./sln
+sln
 # mstest test results
 TestResults
 
