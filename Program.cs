@@ -2,7 +2,7 @@
 {
     class Program
     {
-        void Main()
+        static void Main()
         {
             var program = new Program();
             var Customers = program.GetCustomers(new DateTime(2004, 12, 4),500);

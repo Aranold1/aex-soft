@@ -1,0 +1,20 @@
+SELECT 
+    c.NAME AS CustomerName, 
+    m.NAME AS ManagerName
+FROM 
+    CUSTOMERS c
+JOIN 
+    MANAGERS m ON c.MANAGERID = m.ID
+JOIN 
+    (SELECT 
+         CUSTOMERID, 
+         SUM(AMOUNT) AS TotalAmount
+     FROM 
+         ORDERS
+     WHERE 
+         DATE >= '2023-01-01'
+     GROUP BY 
+         CUSTOMERID
+    ) o ON c.ID = o.CUSTOMERID
+WHERE 
+    o.TotalAmount > 1000;
